@@ -1,0 +1,581 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="aa520049-971f-474d-89ce-92aaacfdd4b7" Name="ff14AuraCan" Enabled="true">
+    <Folders>
+      <Folder Id="87ba1659-ac78-483b-af23-ccc596751595" Name="朗读发言" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="朗读小队内队友发言" Id="4887c0ff-1146-4a32-9d25-a96515c298eb" RegularExpression="^.{14} 00:000e:(?&lt;rp_speakTeammate&gt;.*?):(?&lt;rp_teammateSpeakContent&gt;.*)">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_teammateSpeakContent}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_speakTeammate}" ExpressionTypeL="String" ExpressionR=".${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读小队内自己发言" Id="523e9c86-0e02-40e2-b508-a6ec8459be73" RegularExpression="^.{14} 00:000e:(?&lt;rp_speakMe&gt;.*?):(?&lt;rp_mySpeakContent&gt;.*)">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_mySpeakContent}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_speakMe}" ExpressionTypeL="String" ExpressionR=".${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="朗读喊话内容" Id="c3b85eb1-0a8b-428b-a2b3-cf7518986634" RegularExpression="^.{14} 00:000b:.*?:(?&lt;rp_shMessage&gt;.*)">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_shMessage}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读呼喊内容" Id="ccf744f8-c10b-4a92-9930-28c489c2faac" RegularExpression="^.{14} 00:001e:.*?:(?&lt;rp_shMessage&gt;.*)">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_shMessage}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝8发言" Id="4393547a-d0c8-493d-93c6-4c0210eb1756" RegularExpression="^.{14} 00:0070:♥?(?&lt;rp_crossSheller7&gt;.*?):(?&lt;rp_crossShellMsg7&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg8}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller8}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝1发言" Id="5f4b4af5-0dc9-4a26-9619-60fc47a0da5b" RegularExpression="^.{14} 00:0025:♥?(?&lt;rp_crossSheller1&gt;.*?):(?&lt;rp_crossShellMsg1&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg1}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller1}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝2发言" Id="c02cc6b7-c67e-4dd7-8046-1557115a9d65" RegularExpression="^.{14} 00:0065:♥?(?&lt;rp_crossSheller2&gt;.*?):(?&lt;rp_crossShellMsg2&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg2}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller2}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝3发言" Id="34c77556-7b7c-471e-98d0-cd53f144c58d" RegularExpression="^.{14} 00:0066:♥?(?&lt;rp_crossSheller3&gt;.*?):(?&lt;rp_crossShellMsg3&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg3}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller3}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝4发言" Id="3845e49d-ac59-4ae4-8ada-c1ff6a79fd40" RegularExpression="^.{14} 00:0067:♥?(?&lt;rp_crossSheller4&gt;.*?):(?&lt;rp_crossShellMsg4&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg4}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller4}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝5发言" Id="52d111f5-2645-4bf1-805d-496517e331fd" RegularExpression="^.{14} 00:0068:♥?(?&lt;rp_crossSheller5&gt;.*?):(?&lt;rp_crossShellMsg5&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg5}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller5}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝6发言" Id="61ff884f-da20-42e3-bca7-32ab5a85ecc9" RegularExpression="^.{14} 00:0069:♥?(?&lt;rp_crossSheller6&gt;.*?):(?&lt;rp_crossShellMsg6&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg6}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller6}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="false" Name="朗读跨服贝7发言" Id="9b5ed5f8-e7fe-4cd7-9f7e-b2c61097076c" RegularExpression="^.{14} 00:0070:♥?(?&lt;rp_crossSheller7&gt;.*?):(?&lt;rp_crossShellMsg7&gt;.*)$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_crossShellMsg7}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_crossSheller7}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="0cdb0e6a-fe58-4b3f-9bea-55484a805b5a" Name="交易相关" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="收到队友交易提醒" Id="2e6611af-7417-4f39-b009-72446aa54dc1" RegularExpression="^.{14} 00:0139:收到了(?&lt;rp_teammateGiver&gt;.*?)发来的交易申请。">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="收到了队友,${rp_teammateGiver}发来的交易申请。" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="收到非队友交易提醒" Id="076119ff-affb-4338-8966-21d7ae291775" RegularExpression="^.{14} 00:0239:收到了(?&lt;rp_giver&gt;.*?)发来的交易申请。">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="收到了${rp_giver}发来的交易申请。" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="85ada496-3b5c-498a-a7b8-aae868d1d143" Name="情感动作提醒" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="原生情感动作互动提醒" Id="e806c6f4-08f0-474a-be4b-06170b467772" RegularExpression="^.{14} 00:001d:(?&lt;rp_baseEmOwner&gt;.*?):(?&lt;rp_baseEmMessage&gt;.*)">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_baseEmMessage}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_baseEmOwner}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+              <ConditionSingle Enabled="true" ExpressionL="${rp_baseEmMessage}" ExpressionTypeL="String" ExpressionR=".*?${_ffxivplayer}.*?" ExpressionTypeR="String" ConditionType="RegexMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="em命令互动提醒" Id="794192dc-2290-4e50-a8d9-831a31fa0e99" RegularExpression="^.{14} 00:001c:♥?(?&lt;rp_emOwner&gt;.*?):(?&lt;rp_emMessage&gt;.*)">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_emOwner}${rp_emMessage}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${rp_emMessage}" ExpressionTypeL="String" ExpressionR=".*?${_ffxivplayer}.*?" ExpressionTypeR="String" ConditionType="RegexMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="772f876f-1745-477c-8cd8-c80768882c0d" Name="组队相关" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="被邀请组队" Id="39f9f0b8-3249-418c-a7ea-6d0ab019dffb" RegularExpression="^.{14} 00:2039:收到了(?&lt;rp_inviter&gt;.*?)发来的入队邀请。$">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="收到了${rp_inviter}的邀请" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="加入队伍后每半小时提醒(同服)" Id="ac8bd53a-6529-43aa-baca-4bf067355ed6" RegularExpression="^.{14} 0B:(?&lt;rp_groupMemberNum&gt;.)" PeriodRefire="Deny">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableName="rp_inGroup" VariableExpression="false" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelTrigger" TriggerId="ac8bd53a-6529-43aa-baca-4bf067355ed6" ActionType="Variable">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${rp_groupMemberNum}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+                <Conditions />
+              </Action>
+              <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelTrigger" TriggerId="ac8bd53a-6529-43aa-baca-4bf067355ed6" ActionType="Trigger">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${rp_groupMemberNum}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+                <Conditions />
+              </Action>
+              <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_inGroup" VariableExpression="true" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${rp_groupMemberNum}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                </Condition>
+                <Conditions />
+              </Action>
+              <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" PlaySpeechMyself="True" UseTTSTextExpression="已入队30分钟" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="1800000">
+                <Condition Enabled="true" Grouping="And" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" PlaySpeechMyself="True" UseTTSTextExpression="已入队60分钟" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="1800000">
+                <Condition Enabled="true" Grouping="And" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="6" LogLevel="-1" MouseX="" MouseY="" PlaySpeechMyself="True" UseTTSTextExpression="已入队90分钟" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="1800000">
+                <Condition Enabled="true" Grouping="And" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="7" LogLevel="-1" MouseX="" MouseY="" PlaySpeechMyself="True" UseTTSTextExpression="已入队120分钟" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="1800000">
+                <Condition Enabled="true" Grouping="And" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:rp_inGroup}" ExpressionTypeL="String" ExpressionR="true" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+              <ConditionSingle Enabled="true" ExpressionL="${rp_groupMemberNum}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="0aa26f3f-a2d6-4fc3-9c19-fa812b4f958d" Name="投掷相关" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="他人random点数" Id="f2d6e8db-ebea-46ac-8e9c-a79a7d3f87a8" RegularExpression="^.{14} 00:[1|2]04a:(?&lt;rp_randomer&gt;.*?)掷出了(?&lt;rp_randomValue&gt;.*?)点！">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${rp_randomer}掷出了${rp_randomValue}点" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="自己random点数" Id="bbd9dd33-3155-4bd5-9139-6391a9c5a6e2" RegularExpression="^.{14} 00:084a:.*?掷出了(?&lt;rp_MyRandomValue&gt;.*?)点！">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="掷出了${rp_MyRandomValue}点" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="cb2ce75b-e359-4307-9478-43485c3a9af2" Name="core" Enabled="true">
+        <Folders>
+          <Folder Id="828e8f7c-4ca8-437b-b0dd-f245fc1bf69c" Name="init" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Sequential="True" Name="triggernomety_onload" Id="f2e757f2-9810-4c3c-9dfa-fe96bc934122" RegularExpression="^.{14} FD:">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableOp="Split" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_world" VariableExpression="红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝镜|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" ListVariableOp="Split" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_summoned" VariableExpression="朝日小仙女|夕月小仙女|绿宝石兽|黄宝石兽|红宝石兽|迦楼罗之灵|泰坦之灵|伊弗利特之灵" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_static_switch" VariableExpression="empty" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_gazeat_iterator" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_members_iterator" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="And" />
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Sequential="True" Name="zone_onload" Id="d339dd96-f0c8-4504-b4a4-65f9c0815109" RegularExpression="^.{14} 01:Changed Zone to (?&lt;zone&gt;.*?).$">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableName="rp_members" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" ListVariableName="rp_gazeat" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_switch" VariableExpression="${var:rp_static_switch}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="988aab11-cbcd-40e4-8ab6-bc3c007f54c2" Name="set" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Sequential="True" Name="switch" Id="2d70c597-84a2-437f-93b4-b1c4a7797683" RegularExpression="^.{14} 00:0038:switch( (?&lt;value&gt;.*))?$">
+                <Actions>
+                  <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="启用功能${value}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_switch_value" VariableExpression="^(${value})$" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" ListVariableOp="Split" ListVariableName="rp_switch_value" ListVariableExpression="❘" ListVariableTarget="rp_switchs" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_switch" VariableExpression="${value}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="4" ListVariableOp="Join" ListVariableName="rp_switchs" ListVariableExpression="|" ListVariableTarget="rp_switch" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="5" ListVariableName="rp_switchs" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="6" ListVariableName="rp_switchs" LogLevel="-1" MouseX="" MouseY="" VariableName="rp_switch_value" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="And" />
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Name="away" Id="4a343eae-fe99-4d25-bddc-143a7b5861bc" RegularExpression="^.{14} 00:0038:away( (?&lt;value&gt;.))?$">
+                <Actions>
+                  <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="rp_away" VariableExpression="${value}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="离开后按下键盘,${value}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${value}" ExpressionTypeL="String" ExpressionR="[a-zA-Z0-9]" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+                <Conditions />
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="23f393c7-34ce-4283-9fe8-d17f88baa612" Name="daily" Enabled="true">
+            <Folders>
+              <Folder Id="0c41761d-0efc-456a-84e3-f6a6fd61d550" Name="rp_members" Enabled="true">
+                <Folders />
+                <Triggers>
+                  <Trigger Enabled="true" Name="rp_members_add" Id="7d7bd597-3476-4672-9669-0c38994d4234" RegularExpression="^.{14} 03:.{8}:Added new combatant (?&lt;visiter&gt;.*?)\(.*?\)\.  .*$">
+                    <Actions>
+                      <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${visiter}来了" UseTTSExclusive="False" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" RefireRequeue="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="in" ExpressionTypeL="String" ExpressionR="${var:rp_switch}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="rp_members" ListVariableExpression="${visiter}" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_members.indexof(${visiter})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                      <ConditionSingle Enabled="true" ExpressionL="${visiter}" ExpressionTypeL="String" ExpressionR="${var:rp_summoned}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                      <ConditionSingle Enabled="true" ExpressionL="${visiter}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                    </Condition>
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="rp_members_remove" Id="79a64c34-4668-4a8c-ae0f-ed49b457635b" RegularExpression="^.{14} 04:.{8}:Removing combatant (?&lt;leaver&gt;.*?)\.  .*">
+                    <Actions>
+                      <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${leaver}走了" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_incombat}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
+                          <ConditionSingle Enabled="true" ExpressionL="${leaver}" ExpressionTypeL="String" ExpressionR="${var:rp_summoned}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${leaver}" ExpressionTypeL="String" ExpressionR="^$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="out" ExpressionTypeL="String" ExpressionR="${var:rp_switch}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Remove" ListVariableName="rp_members" ListVariableExpression="${visiter}" ListVariableIndex="${lvar:rp_members.indexof(${leaver})}" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="And" />
+                    <Conditions />
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="093c8c0e-1563-49c9-9ff4-f5229fff0601" Name="rp_gazeat" Enabled="true">
+                <Folders />
+                <Triggers>
+                  <Trigger Enabled="true" Name="rp_gazeat_iterator" Id="2a060986-310e-4af2-9853-09649cac9949" RegularExpression="." PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="1129e38f-ac79-467a-92b2-fe6a9c1481ec" TriggerText="rp_gazeat" ActionType="Trigger">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="9c816e78-4b47-4091-afd7-ba0cc2dd0e8b" TriggerText="rp_gazeat" ActionType="Trigger">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="2a060986-310e-4af2-9853-09649cac9949" TriggerText="rp_gazeat" ActionType="Trigger" ExecutionDelayExpression="1000" RefireRequeue="False">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[1].id}" ExpressionTypeL="String" ExpressionR="^$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                    </Condition>
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="rp_gazeat_add" Id="1129e38f-ac79-467a-92b2-fe6a9c1481ec" RegularExpression="^rp_gazeat$">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="rp_gazeat" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${lvar:rp_members[${var:rp_members_iterator}]}在看你" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" Asynchronous="False" RefireRequeue="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_members[${var:rp_members_iterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxivparty[1].id}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_gazeat.indexof(${lvar:rp_members[${var:rp_members_iterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="gazeat" ExpressionTypeL="String" ExpressionR="${var:rp_switch}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="rp_gazeat" ListVariableExpression="${lvar:rp_members[${var:rp_members_iterator}]}" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_members[${var:rp_members_iterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxivparty[1].id}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_gazeat.indexof(${lvar:rp_members[${var:rp_members_iterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_members_iterator" VariableExpression="${var:rp_members_iterator}+1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:rp_members_iterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_members.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_gazeat_iterator" VariableExpression="${var:rp_gazeat_iterator}+1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="1129e38f-ac79-467a-92b2-fe6a9c1481ec" TriggerText="rp_gazeat" ActionType="Trigger" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:rp_members_iterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_members.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_members_iterator" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:rp_members_iterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_members.size}" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="rp_gazeat_remove" Id="9c816e78-4b47-4091-afd7-ba0cc2dd0e8b" RegularExpression="^rp_gazeat$">
+                    <Actions>
+                      <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${lvar:rp_gazeat[${var:rp_gazeat_iterator}]}移开了目光" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_gazeat[${var:rp_gazeat_iterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxivparty[1].id}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_gazeat.indexof(${lvar:rp_gazeat[${var:rp_gazeat_iterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="turn" ExpressionTypeL="String" ExpressionR="${var:rp_switch}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Remove" ListVariableName="rp_gazeat" ListVariableIndex="${var:rp_gazeat_iterator}" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_gazeat.indexof(${lvar:rp_gazeat[${var:rp_gazeat_iterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_gazeat[${var:rp_gazeat_iterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxivparty[1].id}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_gazeat_iterator" VariableExpression="${var:rp_gazeat_iterator}+1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:rp_gazeat_iterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_gazeat.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_gazeat_iterator" VariableExpression="${var:rp_gazeat_iterator}+1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="9c816e78-4b47-4091-afd7-ba0cc2dd0e8b" TriggerText="rp_gazeat" ActionType="Trigger">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:rp_gazeat_iterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_gazeat.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="rp_gazeat_iterator" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:rp_gazeat_iterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_gazeat.size}" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                        </Condition>
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers />
+          </Folder>
+          <Folder Id="49151655-89b7-4664-88c6-fda9a1636d71" Name="read" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="sgazeat" Id="dff88f02-ab32-473e-960b-46818fd95761" RegularExpression="^.{14} 00:000a:♥?(?&lt;visitor&gt;.*?):(?&lt;msg&gt;.*)$">
+                <Actions>
+                  <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="${visitor}对你说,${msg}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="And" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_gazeat.indexof(${visitor})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                  <ConditionSingle Enabled="true" ExpressionL="sgazeat" ExpressionTypeL="String" ExpressionR="${var:rp_switch}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+                <Conditions />
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
+        <Triggers />
+      </Folder>
+      <Folder Id="863e228d-f99f-4cbc-91da-16dad18fe998" Name="系统" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="离开后动作" Id="c2d992d2-7b27-42f1-8171-6e7f972d0b8a" RegularExpression="^.{14} 00:0039:一段时间内没有进行任何操作，已经自动切换为离开状态。$">
+            <Actions>
+              <Action OrderNumber="1" KeyPressExpression="${var:rp_away}" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="6000">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
+    <Triggers />
+  </ExportedFolder>
+</TriggernometryExport>
