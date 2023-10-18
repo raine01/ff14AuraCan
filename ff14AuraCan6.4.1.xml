@@ -50,7 +50,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="聊天频道发言朗读" Id="f0296ad8-7ff3-4c7d-af98-13bef339fe42" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChatLog 00:00(?&lt;频道&gt;.{2}):(?&lt;序号&gt;(||||||||||)?)(?&lt;分组&gt;(★|●|▲|♦|♥|♠|♣)?)(?&lt;发言人&gt;.*?)(?&lt;服务器&gt;(红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝境|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原|水晶塔|银泪湖|太阳海岸|伊修加德|红茶川)?):(?&lt;消息内容&gt;.*)$">
             <Actions>
@@ -58,7 +57,7 @@
                 <Condition Enabled="true" Grouping="Or">
                   <ConditionGroup Enabled="true" Grouping="And">
                     <ConditionSingle Enabled="true" ExpressionL="${plvar:rp_注视朗读频道列表.indexof(${频道})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
-                    <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${发言人})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${_ffxiventity[${发言人}].id})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
                   </ConditionGroup>
                   <ConditionSingle Enabled="true" ExpressionL="${plvar:rp_朗读频道列表.indexof(${频道})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
                   <ConditionGroup Enabled="true" Grouping="And">
@@ -75,7 +74,6 @@
                 <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_屏蔽字}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
               </ConditionGroup>
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="屏蔽字设置(设置)" Id="14ea9120-65c8-42e9-9b12-7b05e99ff528" RegularExpression="^.{14} ChatLog 00:0038::屏蔽(?&lt;屏蔽词&gt;.+)$">
             <Actions>
@@ -99,7 +97,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="关键字设置(设置)" Id="d5bf2514-5d76-4893-ada9-7b1ee2a0419c" RegularExpression="^.{14} ChatLog 00:0038::关键字(?&lt;关键字&gt;.+)$">
             <Actions>
@@ -123,7 +120,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -192,7 +188,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="列表清空" Id="5da442b8-78bc-4b0e-8d0f-035e5ff597b1" RegularExpression="^.{14} ChangeMap.*?(?&lt;楼层&gt;(地下1层|1层|2层)?)$">
             <Actions>
@@ -213,7 +208,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="玩家列表维护" Id="ac5cc34b-f3e4-4047-a48e-f3942cdcc694" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] (AddCombatant|RemoveCombatant) (?&lt;状态&gt;03|04):(?&lt;玩家ID&gt;.{8}):(?&lt;玩家名&gt;[^:]*)(:[^:]*?){4}:(?&lt;服务器&gt;[^:]*):0:">
             <Actions>
@@ -263,7 +257,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -283,7 +276,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="打印玩家方位与距离" Id="53255906-7154-491e-b06a-dae467b5b0a0" RegularExpression="^.{14} ChatLog 00:0038::找人(?&lt;玩家&gt;.+)$|^find(?&lt;玩家&gt;[^_]+)_(?&lt;后置消息&gt;[^_]+)$">
             <Actions>
@@ -292,7 +284,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="查询道具" Id="e73575c2-f5d8-44ae-89ff-d053b6173ed1" RegularExpression="^.{14} ChatLog 00:0038::查询[ ]*(?&lt;物品&gt;.+)$" Description="https://cafemaker.wakingsands.com 国内&#xD;&#xA;https://xivapi.com/ 国外">
             <Actions>
@@ -348,7 +339,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -373,7 +363,6 @@
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_活点地图}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                 </Condition>
-                <Conditions />
               </Trigger>
             </Triggers>
           </Folder>
@@ -440,7 +429,6 @@
             <Condition Enabled="true" Grouping="And">
               <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_活点地图}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="活点地图设置指令(开关)" Id="e5f74f67-5871-4fd4-9ed7-f3b5e85d7296" RegularExpression="^.{14} ChatLog 00:0038::(?&lt;开关&gt;开|关)活点地图( (?&lt;x&gt;[0-9]+) (?&lt;y&gt;[0-9]+))?$">
             <Actions>
@@ -502,7 +490,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -531,7 +518,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="播读" Id="a646387a-0a0b-4fa5-bf36-659491537680" RegularExpression="^rp(?&lt;编号&gt;[^|]+)\|(?&lt;角色ID&gt;[^|]+)\|(?&lt;服务器&gt;[^|]+)\|(?&lt;角色名&gt;[^|]+)">
             <Actions>
@@ -561,7 +547,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="入场列表播读" Id="6752a6d8-484e-42cf-9371-050fd31d2210" RegularExpression="." PeriodRefire="Deny" RefirePeriodExpression="2000">
             <Actions>
@@ -585,7 +570,6 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
