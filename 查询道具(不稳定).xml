@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedTrigger Enabled="true" Sequential="True" Name="查询道具(不稳定)" Id="e73575c2-f5d8-44ae-89ff-d053b6173ed1" RegularExpression="^.{14} ChatLog 00:0038::查询[ ]*(?&lt;物品&gt;.+)$" Description="https://cafemaker.wakingsands.com 国内&#xD;&#xA;https://xivapi.com/ 国外">
+    <Actions>
+      <Action OrderNumber="1" JsonOperationType="GET" JsonResultVariable="rp_道具列表" JsonEndpointExpression="https://cafemaker.wakingsands.com/search?string=${物品}&amp;indexes=Item" ActionType="GenericJson" Asynchronous="False">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+      <Action OrderNumber="2" LoopDelayExpression="0" ActionType="Loop">
+        <LoopCondition Enabled="true" Grouping="And">
+          <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="${_jsonresponse[Pagination/Results]}" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+          <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="10" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+        </LoopCondition>
+        <LoopActions>
+          <Action OrderNumber="1" VariableOp="QueryJsonPath" VariableName="rp_道具列表" VariableJsonTarget="rp_临时道具名" VariableExpression="Results.${_loopiterator}.Name" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" ListVariableOp="Insert" ListVariableName="rp_道具列表" ListVariableExpression="${var:rp_临时道具名}" ListVariableIndex="${numeric:${_loopiterator}+1}" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e ${numeric:${_loopiterator}+1} ${var:rp_临时道具名}" ActionType="NamedCallback" Asynchronous="False">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </LoopActions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+      <Action OrderNumber="3" VariableOp="QueryJsonPath" VariableName="rp_道具列表" VariableJsonTarget="rp_临时道具id" VariableExpression="Results.0.ID" ActionType="Variable">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+      <Action OrderNumber="4" JsonOperationType="GET" JsonResultVariable="rp_道具信息" JsonEndpointExpression="https://cafemaker.wakingsands.com/item/${var:rp_临时道具id}" ActionType="GenericJson" Asynchronous="False">
+        <Condition Enabled="true" Grouping="And">
+          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_道具列表[1]}" ExpressionTypeL="String" ExpressionR="^${物品}$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+        </Condition>
+      </Action>
+      <Action OrderNumber="5" VariableOp="QueryJsonPath" VariableName="rp_道具信息" VariableJsonTarget="rp_道具类别" VariableExpression="ItemKind.Name" ActionType="Variable">
+        <Condition Enabled="true" Grouping="And">
+          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_道具列表[1]}" ExpressionTypeL="String" ExpressionR="^${物品}$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+        </Condition>
+      </Action>
+      <Action OrderNumber="6" VariableOp="QueryJsonPath" VariableName="rp_道具信息" VariableJsonTarget="rp_道具介绍" VariableExpression="Description" ActionType="Variable">
+        <Condition Enabled="true" Grouping="And">
+          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_道具列表[1]}" ExpressionTypeL="String" ExpressionR="^${物品}$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+        </Condition>
+      </Action>
+      <Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/e ${物品}：&#xA;道具类别：${var:rp_道具类别}&#xA;道具介绍：${var:rp_道具介绍}" ActionType="NamedCallback">
+        <Condition Enabled="true" Grouping="And">
+          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_道具列表[1]}" ExpressionTypeL="String" ExpressionR="^${物品}$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+        </Condition>
+      </Action>
+      <Action OrderNumber="8" VariableName="rp_道具信息" ActionType="Variable">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+      <Action OrderNumber="9" VariableName="rp_道具列表" ActionType="Variable">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+      <Action OrderNumber="10" VariableName="rp_临时道具id" ActionType="Variable">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+      <Action OrderNumber="11" ActionType="SystemBeep">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+    </Actions>
+    <Condition Enabled="false" Grouping="Or" />
+  </ExportedTrigger>
+</TriggernometryExport>
