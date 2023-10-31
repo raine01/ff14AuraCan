@@ -225,34 +225,14 @@
                   <ConditionSingle Enabled="true" ExpressionL="${玩家ID}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
                 </Condition>
               </Action>
-              <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="rp_入场列表" ListVariableExpression="${玩家名}" Enabled="False" ActionType="ListVariable">
-                <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="03" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-                  <ConditionSingle Enabled="true" ExpressionL="rp_玩家列表" ExpressionTypeL="String" ExpressionR="${玩家名}" ExpressionTypeR="String" ConditionType="ListDoesNotContain" />
-                  <ConditionSingle Enabled="true" ExpressionL="${玩家名}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_入场}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                </Condition>
-              </Action>
-              <Action OrderNumber="4" ListVariableOp="Remove" ListVariableName="rp_玩家列表" ListVariableIndex="${lvar:rp_玩家列表.indexof(${玩家ID})}" ActionType="ListVariable">
+              <Action OrderNumber="3" ListVariableOp="Remove" ListVariableName="rp_玩家列表" ListVariableIndex="${lvar:rp_玩家列表.indexof(${玩家ID})}" ActionType="ListVariable">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-              <Action OrderNumber="5" ListVariableOp="Push" LogMessageText="rp02|${玩家ID}|${服务器}|${玩家名}|离场" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
+              <Action OrderNumber="4" ListVariableOp="Push" LogMessageText="rp02|${玩家ID}|${服务器}|${玩家名}|离场" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-                </Condition>
-              </Action>
-              <Action OrderNumber="6" ListVariableOp="Push" UseTTSTextExpression="${玩家名}走了" Enabled="False" ActionType="UseTTS">
-                <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_离场}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                </Condition>
-              </Action>
-              <Action OrderNumber="7" ListVariableOp="Push" NamedCallbackName="command" NamedCallbackParam="/e ${玩家名}走了" Enabled="False" ActionType="NamedCallback">
-                <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-                  <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_离场}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                 </Condition>
               </Action>
             </Actions>
