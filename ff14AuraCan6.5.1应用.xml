@@ -105,7 +105,7 @@
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(982|981|980|651|650|649|347|346|345|344|343|342|284|283|282)$" Id="7b59192e-b127-482d-aa95-73574658bb99" Name="活点地图区域限制" Enabled="true">
             <Folders />
             <Triggers>
-              <Trigger Enabled="true" Name="绘制玩家位置" Id="2d9e6e50-4fb0-47c4-b9d4-c94fa0352fb1" RegularExpression="^绘制玩家位置(?&lt;状态&gt;01)_(?&lt;角色名&gt;.+)$|^rp(?&lt;状态&gt;..)\|[^|]*\|(?&lt;服务器&gt;[^|]+)\|(?&lt;角色名&gt;[^|]+)">
+              <Trigger Enabled="true" Name="绘制玩家位置" Id="2d9e6e50-4fb0-47c4-b9d4-c94fa0352fb1" RegularExpression="^绘制玩家位置(?&lt;状态&gt;01)_(?&lt;角色名&gt;.+)$|^rp(?&lt;状态&gt;..)\|[^|]*\|[^|]*\|(?&lt;服务器&gt;[^|]+)\|(?&lt;角色名&gt;[^|]+)">
                 <Actions>
                   <Action OrderNumber="1" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="#FF8000" TextAuraName="活点地图${角色名}" TextAuraExpression="${角色名}" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraXTickExpression="${pvar:rp_活点地图x}+10*${_ffxiventity[${角色名}].x}" TextAuraYTickExpression="${pvar:rp_活点地图y}+10*${_ffxiventity[${角色名}].y}" TextAuraOTickExpression="if(${func:compare(${_ffxiventity[${角色名}].targetid}):${_ffxivparty[1].id}},50,100)" TextAuraFontName="微软雅黑" ActionType="TextAura">
                     <Condition Enabled="true" Grouping="And">
