@@ -123,159 +123,393 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="77717e35-b41f-4fe1-845d-9cebe3a76436" Name="玩家列表维护与日志生成" Enabled="true">
-        <Folders />
-        <Triggers>
-          <Trigger Enabled="true" Name="定时任务" Id="2bd83167-b532-4b9d-8b55-b4c7e45b839d" RegularExpression="." PeriodRefire="Deny" RefirePeriodExpression="500">
-            <Actions>
-              <Action OrderNumber="1" TriggerId="2bd83167-b532-4b9d-8b55-b4c7e45b839d" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="500" RefireRequeue="False">
+      <Folder Id="2e21f1b0-7657-4a09-b928-6b78d8424d69" Name="日志处理" Enabled="true">
+        <Folders>
+          <Folder Id="77717e35-b41f-4fe1-845d-9cebe3a76436" Name="日志生成-玩家列表" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="定时任务" Id="2bd83167-b532-4b9d-8b55-b4c7e45b839d" RegularExpression="^." PeriodRefire="Deny" RefirePeriodExpression="500">
+                <Actions>
+                  <Action OrderNumber="1" TriggerId="2bd83167-b532-4b9d-8b55-b4c7e45b839d" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="500" RefireRequeue="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                  <Action OrderNumber="2" LoopDelayExpression="0" LoopInitExpression="1" ActionType="Loop" Description="玩家列表遍历">
+                    <LoopCondition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_玩家列表.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                    </LoopCondition>
+                    <LoopActions>
+                      <Action OrderNumber="1" LogMessageText="rp03|${lvar:rp_玩家列表[${_loopiterator}]}|${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].worldname}|${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].name}|注视" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${lvar:rp_玩家列表[${_loopiterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" LogLevel="Info" VariableOp="SetString" VariableName="${lvar:rp_玩家列表[${_loopiterator}]}" VariableExpression="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].worldname}|${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].name}" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${lvar:rp_玩家列表[${_loopiterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="rp_注视列表" ListVariableExpression="${lvar:rp_玩家列表[${_loopiterator}]}" UseTTSTextExpression="${_ffxiventity[${玩家id}].name}在看你" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                          <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${lvar:rp_玩家列表[${_loopiterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                        </Condition>
+                      </Action>
+                    </LoopActions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_玩家列表.size}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" LoopDelayExpression="0" LoopInitExpression="1" ActionType="Loop" Description="注视列表遍历">
+                    <LoopCondition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_注视列表.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                    </LoopCondition>
+                    <LoopActions>
+                      <Action OrderNumber="1" LogMessageText="rp04|${lvar:rp_注视列表[${_loopiterator}]}|${var:${lvar:rp_注视列表[${_loopiterator}]}}|不看" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_注视列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" LogLevel="Info" VariableName="${lvar:rp_注视列表[${_loopiterator}]}" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_注视列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ListVariableOp="Remove" ListVariableName="rp_注视列表" ListVariableIndex="${lvar:rp_注视列表.indexof(${lvar:rp_注视列表[${_loopiterator}]})}" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_注视列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                        </Condition>
+                      </Action>
+                    </LoopActions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.size}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    </Condition>
+                  </Action>
+                </Actions>
                 <Condition Enabled="false" Grouping="Or" />
-              </Action>
-              <Action OrderNumber="2" LoopDelayExpression="0" LoopInitExpression="1" ActionType="Loop" Description="玩家列表遍历">
+              </Trigger>
+              <Trigger Enabled="true" Name="更换地图" Id="5da442b8-78bc-4b0e-8d0f-035e5ff597b1" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChangeMap 28:(?&lt;地区id&gt;.*):(?&lt;一级&gt;.*):(?&lt;二级&gt;.*):(?&lt;三级&gt;.*)$">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableName="rp_注视列表" ActionType="ListVariable">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${三级}" ExpressionTypeL="String" ExpressionR="层$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="2" ListVariableName="rp_入场列表" ActionType="ListVariable">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${三级}" ExpressionTypeL="String" ExpressionR="层$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" ListVariableName="rp_玩家列表" ActionType="ListVariable">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${三级}" ExpressionTypeL="String" ExpressionR="层$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="4" ListVariableOp="Push" LogMessageText="rp00|${_ffxiventity[${_ffxivplayer}].id}|${时间}|${_ffxiventity[${_ffxivplayer}].worldname}|${_ffxivplayer}|${地区id}|${一级}|${二级}|${三级}|更换地图" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
+                    <Condition Enabled="true" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+              <Trigger Enabled="true" Name="玩家列表维护" Id="ac5cc34b-f3e4-4047-a48e-f3942cdcc694" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] (AddCombatant|RemoveCombatant) (?&lt;状态&gt;03|04):(?&lt;玩家ID&gt;.{8}):(?&lt;玩家名&gt;[^:]*)(:[^:]*?){4}:(?&lt;服务器&gt;[^:]*):0:">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="rp_玩家列表" ListVariableExpression="${玩家ID}" ActionType="ListVariable">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="03" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                      <ConditionSingle Enabled="true" ExpressionL="rp_玩家列表" ExpressionTypeL="String" ExpressionR="${玩家ID}" ExpressionTypeR="String" ConditionType="ListDoesNotContain" />
+                      <ConditionSingle Enabled="true" ExpressionL="${玩家ID}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="2" ListVariableOp="Push" LogMessageText="rp01|${玩家ID}|${时间}|${服务器}|${玩家名}|入场" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="03" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                      <ConditionSingle Enabled="true" ExpressionL="rp_玩家列表" ExpressionTypeL="String" ExpressionR="${玩家ID}" ExpressionTypeR="String" ConditionType="ListDoesNotContain" />
+                      <ConditionSingle Enabled="true" ExpressionL="${玩家ID}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" ListVariableOp="Remove" ListVariableName="rp_玩家列表" ListVariableIndex="${lvar:rp_玩家列表.indexof(${玩家ID})}" ActionType="ListVariable">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="4" ListVariableOp="Push" LogMessageText="rp02|${玩家ID}|${时间}|${服务器}|${玩家名}|离场" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="33ff26bd-c5ae-4b2b-a721-2d189ee8fe44" Name="日志生成-频道发言" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="跨服贝、说话、喊话、发悄悄话、收悄悄话、呼喊、部队、新人" Id="242d2ad8-7c39-43d7-9a23-9c92495e374b" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChatLog 00:00(?&lt;频道&gt;25|65|66|67|68|69|70|71|0A|0B|0C|0D|1E|18|1B):(?&lt;分组&gt;(★|●|▲|♦|♥|♠|♣)?)(?&lt;发言人&gt;.*?)(?&lt;服务器&gt;(红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝境|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原|水晶塔|银泪湖|太阳海岸|伊修加德|红茶川)?):(?&lt;消息内容&gt;.*)$">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableOp="Push" LogMessageText="rp05|${发言人}|${频道}|${func:trim:${func:substring(${numeric:${func:lastindexof(${频道}):25656667686970710A0B0C0D0E1C1D1E181B}*2},4):跨服贝1跨服贝2跨服贝3跨服贝4跨服贝5跨服贝6跨服贝7跨服贝8  说话  喊话发悄悄话收悄悄话  小队情感动作情感动作  呼喊  部队  新人}}|${func:trim:${func:substring(${numeric:${func:lastindexof(${频道}):25656667686970710A0B0C0D0E1C1D1E181B}*2},4):cwl1cwl2cwl3cwl4cwl5cwl6cwl7cwl8   s  sh   t   r   p  em  em   y  fc   b}}|[${时间}][${func:trim:${func:substring(${numeric:${func:lastindexof(${频道}):25656667686970710A0B0C0D0E1C1D1E181B}*2},4):跨服贝1跨服贝2跨服贝3跨服贝4跨服贝5跨服贝6跨服贝7跨服贝8  说话  喊话发悄悄话收悄悄话  小队情感动作情感动作  呼喊  部队  新人}}]${发言人}${服务器}:${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+              <Trigger Enabled="true" Name="小队" Id="c3c88e49-b78c-4c66-94ea-6d01f491add7" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChatLog 00:000E:(?&lt;序号&gt;(||||||||||)?)(?&lt;分组&gt;(★|●|▲|♦|♥|♠|♣)?)(?&lt;发言人&gt;.*?)(?&lt;服务器&gt;(红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝境|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原|水晶塔|银泪湖|太阳海岸|伊修加德|红茶川)?):(?&lt;消息内容&gt;.*)$">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableOp="Push" LogMessageText="rp05|${发言人}|0E|小队|p|[${时间}][小队][${numeric:${func:lastindexof(${序号}):}+1}]${发言人}${服务器}:${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+              <Trigger Enabled="true" Name="情感动作" Id="5495f6d6-4e82-4ccb-8203-a0ec630be938" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChatLog 00:00(?&lt;频道&gt;1C|1D):(?&lt;分组&gt;(★|●|▲|♦|♥|♠|♣)?)(?&lt;发言人&gt;.*?)(?&lt;服务器&gt;(红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝境|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原|水晶塔|银泪湖|太阳海岸|伊修加德|红茶川)?):(?&lt;消息内容&gt;.*)$">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableOp="Push" LogMessageText="rp05|${发言人}|1C|文本指令|em|[${时间}][文本指令]${发言人}${服务器}${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${频道}" ExpressionTypeL="String" ExpressionR="1C" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="2" ListVariableOp="Push" LogMessageText="rp05|${发言人}|1D|情感动作|em|[${时间}][情感动作]${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${频道}" ExpressionTypeL="String" ExpressionR="1D" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="16f5f489-cd99-462d-8f56-8f159da3bbe1" Name="日志加工" Enabled="true">
+            <Folders>
+              <Folder Id="5565e0a4-1324-4a1f-baa6-f8efd4f9ca04" Name="延迟入场" Enabled="true">
+                <Folders />
+                <Triggers>
+                  <Trigger Enabled="true" Name="入场列表添加" Id="064cf3fe-a45d-4cfe-8284-ad58ef5123e9" RegularExpression="^rp01\|(?&lt;角色ID&gt;[^|]+)\|[^|]+\|(?&lt;服务器&gt;[^|]+)\|(?&lt;角色名&gt;[^|]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="rp_入场列表" ListVariableExpression="${角色ID}|${服务器}|${角色名}" ActionType="ListVariable" Asynchronous="False" Description="防止切换地图时tts卡死">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="延迟入场日志生成" Id="5d4e1192-8562-4b81-95aa-f07acebc5e8c" RegularExpression="." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="2000">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Push" LogMessageText="rp06|${lvar:rp_入场列表[1]}|延迟入场" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Remove" ListVariableName="rp_入场列表" ListVariableIndex="1" ActionType="ListVariable">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                      <Action OrderNumber="3" TriggerId="5d4e1192-8562-4b81-95aa-f07acebc5e8c" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="2000" RefireRequeue="False">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_入场列表.size}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="607e5ce5-884b-4059-98a8-3ad45f3332b8" Name="带方位日志" Enabled="true">
+                <Folders />
+                <Triggers>
+                  <Trigger Enabled="true" Name="方位注视与不看" Id="53255906-7154-491e-b06a-dae467b5b0a0" RegularExpression="^rp0(?&lt;频道&gt;[34])\|(?&lt;角色ID&gt;[^|]+)\|(?&lt;服务器&gt;[^|]+)\|(?&lt;角色名&gt;[^|]+)\|(?&lt;指令&gt;[^|]+)">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="rp0${numeric:${频道}+4}|${角色ID}|${服务器}|${角色名}|${func:substring(${numeric:round((((((${_ffxiventity[${_ffxivplayer}].heading}-arccos((${_ffxiventity[${角色ID}].y}-(${_ffxiventity[${_ffxivplayer}].y})-1)/distance(${_ffxiventity[${角色ID}].x}-(${_ffxiventity[${_ffxivplayer}].x}),${_ffxiventity[${角色ID}].y}-(${_ffxiventity[${_ffxivplayer}].y}),0,1))*if(${_ffxiventity[${角色ID}].x}&lt;${_ffxiventity[${_ffxivplayer}].x},-1,1))+3*pi)%(2*pi))-3*pi)%(-4*pi)+3*pi)/pi*4)*2},2):后方左后左侧左前前方右前右侧右后后方}|${_ffxiventity[${角色ID}].distance}|方位${指令}" LogProcess="True" ActionType="LogMessage">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers />
+          </Folder>
+        </Folders>
+        <Triggers />
+      </Folder>
+      <Folder Id="0e851704-35f3-420e-b28e-184ffe7bd715" Name="活点地图" Enabled="true">
+        <Folders>
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(982|981|980|651|650|649|347|346|345|344|343|342|284|283|282)$" Id="7b59192e-b127-482d-aa95-73574658bb99" Name="活点地图区域限制" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="绘制玩家位置" Id="2d9e6e50-4fb0-47c4-b9d4-c94fa0352fb1" RegularExpression="^绘制玩家位置(?&lt;状态&gt;01)_(?&lt;角色名&gt;.+)$|^rp(?&lt;状态&gt;..)\|[^|]*\|[^|]*\|(?&lt;服务器&gt;[^|]+)\|(?&lt;角色名&gt;[^|]+)">
+                <Actions>
+                  <Action OrderNumber="1" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="#FF8000" TextAuraName="活点地图${角色名}" TextAuraExpression="${角色名}" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraXTickExpression="${pvar:rp_活点地图x}+10*${_ffxiventity[${角色名}].x}" TextAuraYTickExpression="${pvar:rp_活点地图y}+10*${_ffxiventity[${角色名}].y}" TextAuraOTickExpression="if(${func:compare(${_ffxiventity[${角色名}].targetid}):${_ffxivparty[1].id}},50,100)" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="^01|0$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="2" TextAuraOp="DeactivateAura" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="#0080FF" TextAuraName="活点地图${角色名}" TextAuraUseOutline="True" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="^02$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_活点地图}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
+        <Triggers>
+          <Trigger Enabled="true" Name="活点地图设置指令(开关)" Id="e5f74f67-5871-4fd4-9ed7-f3b5e85d7296" RegularExpression="^.{14} ChatLog 00:0038::(?&lt;开关&gt;开|关)活点地图( (?&lt;x&gt;[0-9]+) (?&lt;y&gt;[0-9]+))?$">
+            <Actions>
+              <Action OrderNumber="1" LoopDelayExpression="1" LoopInitExpression="1" ActionType="Loop">
                 <LoopCondition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_玩家列表.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                 </LoopCondition>
                 <LoopActions>
-                  <Action OrderNumber="1" LogMessageText="rp03|${lvar:rp_玩家列表[${_loopiterator}]}|${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].worldname}|${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].name}|注视" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Asynchronous="False">
-                    <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="RegexMatch" />
-                      <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${lvar:rp_玩家列表[${_loopiterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="2" LogLevel="Info" VariableOp="SetString" VariableName="${lvar:rp_玩家列表[${_loopiterator}]}" VariableExpression="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].worldname}|${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].name}" ActionType="Variable" Asynchronous="False">
-                    <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="RegexMatch" />
-                      <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${lvar:rp_玩家列表[${_loopiterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="rp_注视列表" ListVariableExpression="${lvar:rp_玩家列表[${_loopiterator}]}" UseTTSTextExpression="${_ffxiventity[${玩家id}].name}在看你" ActionType="ListVariable" Asynchronous="False">
-                    <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_玩家列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexMatch" />
-                      <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.indexof(${lvar:rp_玩家列表[${_loopiterator}]})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="RegexMatch" />
-                    </Condition>
+                  <Action OrderNumber="1" TriggerId="2d9e6e50-4fb0-47c4-b9d4-c94fa0352fb1" TriggerText="绘制玩家位置01_${lvar:rp_玩家列表[${_loopiterator}]}" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
                   </Action>
                 </LoopActions>
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_玩家列表.size}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="开" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-              <Action OrderNumber="3" LoopDelayExpression="0" LoopInitExpression="1" ActionType="Loop" Description="注视列表遍历">
-                <LoopCondition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:rp_注视列表.size}" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
-                </LoopCondition>
-                <LoopActions>
-                  <Action OrderNumber="1" LogMessageText="rp04|${lvar:rp_注视列表[${_loopiterator}]}|${var:${lvar:rp_注视列表[${_loopiterator}]}}|不看" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Asynchronous="False">
-                    <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_注视列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
-                      <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_不看}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="2" LogLevel="Info" VariableName="${lvar:rp_注视列表[${_loopiterator}]}" ActionType="Variable" Asynchronous="False">
-                    <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_注视列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
-                      <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_不看}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="3" ListVariableOp="Remove" ListVariableName="rp_注视列表" ListVariableIndex="${lvar:rp_注视列表.indexof(${lvar:rp_注视列表[${_loopiterator}]})}" ActionType="ListVariable" Asynchronous="False">
-                    <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${lvar:rp_注视列表[${_loopiterator}]}].targetid}" ExpressionTypeL="String" ExpressionR="^${_ffxivparty[1].id}$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
-                    </Condition>
-                  </Action>
-                </LoopActions>
+              <Action OrderNumber="2" TriggerId="2d9e6e50-4fb0-47c4-b9d4-c94fa0352fb1" TriggerText="绘制玩家位置01_${_ffxivplayer}" ActionType="Trigger">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${lvar:rp_注视列表.size}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="开" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-          </Trigger>
-          <Trigger Enabled="true" Name="更换地图" Id="5da442b8-78bc-4b0e-8d0f-035e5ff597b1" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChangeMap 28:(?&lt;地区id&gt;.*):(?&lt;一级&gt;.*):(?&lt;二级&gt;.*):(?&lt;三级&gt;.*)$">
-            <Actions>
-              <Action OrderNumber="1" ListVariableName="rp_注视列表" ActionType="ListVariable">
+              <Action OrderNumber="3" VariableOp="SetString" VariableName="rp_活点地图" VariablePersist="True" TriggerOp="EnableTrigger" TriggerId="2d9e6e50-4fb0-47c4-b9d4-c94fa0352fb1" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${三级}" ExpressionTypeL="String" ExpressionR="层$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="开" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-              <Action OrderNumber="2" ListVariableName="rp_入场列表" ActionType="ListVariable">
+              <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="rp_活点地图x" VariableExpression="${x}" VariablePersist="True" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${三级}" ExpressionTypeL="String" ExpressionR="层$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                  <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="^$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
                 </Condition>
               </Action>
-              <Action OrderNumber="3" ListVariableName="rp_玩家列表" ActionType="ListVariable">
+              <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="rp_活点地图y" VariableExpression="${y}" VariablePersist="True" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${三级}" ExpressionTypeL="String" ExpressionR="层$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
+                  <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="^$" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
                 </Condition>
               </Action>
-              <Action OrderNumber="4" ListVariableOp="Push" LogMessageText="rp00|${_ffxiventity[${_ffxivplayer}].id}|${时间}|${_ffxiventity[${_ffxivplayer}].worldname}|${_ffxivplayer}|${地区id}|${一级}|${二级}|${三级}|更换地图" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
-                <Condition Enabled="true" Grouping="Or" />
-              </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-          </Trigger>
-          <Trigger Enabled="true" Name="玩家列表维护" Id="ac5cc34b-f3e4-4047-a48e-f3942cdcc694" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] (AddCombatant|RemoveCombatant) (?&lt;状态&gt;03|04):(?&lt;玩家ID&gt;.{8}):(?&lt;玩家名&gt;[^:]*)(:[^:]*?){4}:(?&lt;服务器&gt;[^:]*):0:">
-            <Actions>
-              <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="rp_玩家列表" ListVariableExpression="${玩家ID}" ActionType="ListVariable">
+              <Action OrderNumber="6" TriggerId="42c0f1eb-62a9-4d75-9234-28c97ac7939e" TriggerText="绘制边框别墅" TriggerForce="parent" ActionType="Trigger">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="03" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-                  <ConditionSingle Enabled="true" ExpressionL="rp_玩家列表" ExpressionTypeL="String" ExpressionR="${玩家ID}" ExpressionTypeR="String" ConditionType="ListDoesNotContain" />
-                  <ConditionSingle Enabled="true" ExpressionL="${玩家ID}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="^982|651|347|344|284$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="开" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-              <Action OrderNumber="2" ListVariableOp="Push" LogMessageText="rp01|${玩家ID}|${时间}|${服务器}|${玩家名}|入场" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
+              <Action OrderNumber="7" TriggerId="42c0f1eb-62a9-4d75-9234-28c97ac7939e" TriggerText="绘制边框公馆" TriggerForce="parent" ActionType="Trigger">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="03" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-                  <ConditionSingle Enabled="true" ExpressionL="rp_玩家列表" ExpressionTypeL="String" ExpressionR="${玩家ID}" ExpressionTypeR="String" ConditionType="ListDoesNotContain" />
-                  <ConditionSingle Enabled="true" ExpressionL="${玩家ID}" ExpressionTypeL="String" ExpressionR="${_ffxiventity[${_ffxivplayer}].id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="^981|650|346|343|283$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="开" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-              <Action OrderNumber="3" ListVariableOp="Remove" ListVariableName="rp_玩家列表" ListVariableIndex="${lvar:rp_玩家列表.indexof(${玩家ID})}" ActionType="ListVariable">
+              <Action OrderNumber="8" TriggerId="42c0f1eb-62a9-4d75-9234-28c97ac7939e" TriggerText="绘制边框小屋" TriggerForce="parent" ActionType="Trigger">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="^980|649|345|342|282$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="开" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-              <Action OrderNumber="4" ListVariableOp="Push" LogMessageText="rp02|${玩家ID}|${时间}|${服务器}|${玩家名}|离场" LogProcess="True" LogLevel="Info" ActionType="LogMessage">
+              <Action OrderNumber="9" VariableName="rp_活点地图" VariablePersist="True" TriggerOp="DisableTrigger" TriggerId="2d9e6e50-4fb0-47c4-b9d4-c94fa0352fb1" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${状态}" ExpressionTypeL="String" ExpressionR="04" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="关" ExpressionTypeR="String" ConditionType="StringEqualCase" />
                 </Condition>
               </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-          </Trigger>
-        </Triggers>
-      </Folder>
-      <Folder Id="33ff26bd-c5ae-4b2b-a721-2d189ee8fe44" Name="频道日志加工" Enabled="true">
-        <Folders />
-        <Triggers>
-          <Trigger Enabled="true" Name="跨服贝、说话、喊话、悄悄话、呼喊、部队、新人" Id="242d2ad8-7c39-43d7-9a23-9c92495e374b" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChatLog 00:00(?&lt;频道&gt;25|65|66|67|68|69|70|71|0A|0B|0D|1E|18|1B):(?&lt;分组&gt;(★|●|▲|♦|♥|♠|♣)?)(?&lt;发言人&gt;.*?)(?&lt;服务器&gt;(红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝境|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原|水晶塔|银泪湖|太阳海岸|伊修加德|红茶川)?):(?&lt;消息内容&gt;.*)$">
-            <Actions>
-              <Action OrderNumber="1" ListVariableOp="Push" LogMessageText="rp05|${发言人}|${频道}|${func:trim:${func:substring(${numeric:${func:lastindexof(${频道}):25656667686970710A0B0D0E1C1D1E181B}*2},4):跨服贝1跨服贝2跨服贝3跨服贝4跨服贝5跨服贝6跨服贝7跨服贝8  说话  喊话 悄悄话  小队情感动作情感动作  呼喊  部队  新人}}|${func:trim:${func:substring(${numeric:${func:lastindexof(${频道}):25656667686970710A0B0D0E1C1D1E181B}*2},4):cwl1cwl2cwl3cwl4cwl5cwl6cwl7cwl8   s  sh   t   p  em  em   y  fc   b}}|[${时间}][${func:trim:${func:substring(${numeric:${func:lastindexof(${频道}):25656667686970710A0B0D0E1C1D1E181B}*2},4):跨服贝1跨服贝2跨服贝3跨服贝4跨服贝5跨服贝6跨服贝7跨服贝8  说话  喊话 悄悄话  小队情感动作情感动作  呼喊  部队  新人}}]${发言人}${服务器}:${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
+              <Action OrderNumber="10" TextAuraOp="DeactivateAuraRegex" TextAuraFontSize="9" TextAuraName="^活点地图.*" TextAuraFontName="宋体" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${开关}" ExpressionTypeL="String" ExpressionR="关" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="11" ActionType="SystemBeep">
                 <Condition Enabled="false" Grouping="Or" />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
           </Trigger>
-          <Trigger Enabled="true" Name="小队" Id="c3c88e49-b78c-4c66-94ea-6d01f491add7" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChatLog 00:000E:(?&lt;序号&gt;(||||||||||)?)(?&lt;分组&gt;(★|●|▲|♦|♥|♠|♣)?)(?&lt;发言人&gt;.*?)(?&lt;服务器&gt;(红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝境|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原|水晶塔|银泪湖|太阳海岸|伊修加德|红茶川)?):(?&lt;消息内容&gt;.*)$">
+          <Trigger Enabled="true" Name="绘制边框" Id="42c0f1eb-62a9-4d75-9234-28c97ac7939e" RegularExpression="^绘制边框(?&lt;尺寸&gt;小屋|公馆|别墅)$|^rp00[^(小屋)(公馆)(别墅)]+(?&lt;尺寸&gt;小屋|公馆|别墅|)">
             <Actions>
-              <Action OrderNumber="1" ListVariableOp="Push" LogMessageText="rp05|${发言人}|0E|小队|p|[${时间}][小队][${numeric:${func:lastindexof(${序号}):}+1}]${发言人}${服务器}:${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
-                <Condition Enabled="false" Grouping="Or" />
-              </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-          </Trigger>
-          <Trigger Enabled="true" Name="情感动作" Id="5495f6d6-4e82-4ccb-8203-a0ec630be938" RegularExpression="^\[(?&lt;时间&gt;.{8}).{4}\] ChatLog 00:00(?&lt;频道&gt;1C|1D):(?&lt;分组&gt;(★|●|▲|♦|♥|♠|♣)?)(?&lt;发言人&gt;.*?)(?&lt;服务器&gt;(红玉海|神意之地|拉诺西亚|幻影群岛|萌芽池|宇宙和音|沃仙曦染|晨曦王座|白银乡|白金幻象|神拳痕|潮风亭|旅人栈桥|拂晓之间|龙巢神殿|梦羽宝境|紫水栈桥|延夏|静语庄园|摩杜纳|海猫茶屋|柔风海湾|琥珀原|水晶塔|银泪湖|太阳海岸|伊修加德|红茶川)?):(?&lt;消息内容&gt;.*)$">
-            <Actions>
-              <Action OrderNumber="1" ListVariableOp="Push" LogMessageText="rp05|${发言人}|1C|文本指令|em|[${时间}][文本指令]${发言人}${服务器}${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${频道}" ExpressionTypeL="String" ExpressionR="1C" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+              <Action OrderNumber="1" TextAuraOp="DeactivateAuraRegex" TextAuraFontSize="9" TextAuraName="^活点地图.*" TextAuraFontName="宋体" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^$" ExpressionTypeR="String" ConditionType="RegexMatch" />
                 </Condition>
               </Action>
-              <Action OrderNumber="2" ListVariableOp="Push" LogMessageText="rp05|${发言人}|1D|情感动作|em|[${时间}][情感动作]${消息内容}" LogProcess="True" LogLevel="Info" ActionType="LogMessage" Description="除小队与两种情感动作">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${频道}" ExpressionTypeL="String" ExpressionR="1D" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+              <Action OrderNumber="2" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┏" TextAuraExpression="┏" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}-200" TextAuraYTickExpression="${pvar:rp_活点地图y}-120" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^别墅$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┗" TextAuraExpression="┗" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}-200" TextAuraYTickExpression="${pvar:rp_活点地图y}+120" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^别墅$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┓" TextAuraExpression="┓" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}+200" TextAuraYTickExpression="${pvar:rp_活点地图y}-120" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^别墅$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┛" TextAuraExpression="┛" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}+200" TextAuraYTickExpression="${pvar:rp_活点地图y}+120" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^别墅$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图━" TextAuraExpression="━" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}" TextAuraYTickExpression="${pvar:rp_活点地图y}+120" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^别墅$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┏" TextAuraExpression="┏" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}-120" TextAuraYTickExpression="${pvar:rp_活点地图y}-80" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^公馆$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┗" TextAuraExpression="┗" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}-120" TextAuraYTickExpression="${pvar:rp_活点地图y}+80" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^公馆$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┓" TextAuraExpression="┓" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}+120" TextAuraYTickExpression="${pvar:rp_活点地图y}-80" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^公馆$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┛" TextAuraExpression="┛" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}+120" TextAuraYTickExpression="${pvar:rp_活点地图y}+80" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^公馆$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="11" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图━" TextAuraExpression="━" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}" TextAuraYTickExpression="${pvar:rp_活点地图y}+80" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^公馆$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="12" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┏" TextAuraExpression="┏" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}-60" TextAuraYTickExpression="${pvar:rp_活点地图y}-60" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^小屋$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="13" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┓" TextAuraExpression="┓" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}+60" TextAuraYTickExpression="${pvar:rp_活点地图y}-60" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^小屋$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="14" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┗" TextAuraExpression="┗" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}-60" TextAuraYTickExpression="${pvar:rp_活点地图y}+140" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^小屋$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="15" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图┛" TextAuraExpression="┛" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}+60" TextAuraYTickExpression="${pvar:rp_活点地图y}+140" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^小屋$" ExpressionTypeR="String" ConditionType="RegexMatch" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="16" TextAuraAlignment="TopLeft" TextAuraFontSize="12" TextAuraForeground="White" TextAuraName="活点地图━" TextAuraExpression="━" TextAuraWIniExpression="600" TextAuraHIniExpression="600" TextAuraOIniExpression="100" TextAuraXTickExpression="${pvar:rp_活点地图x}" TextAuraYTickExpression="${pvar:rp_活点地图y}+60" TextAuraFontName="微软雅黑" ActionType="TextAura">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${尺寸}" ExpressionTypeL="String" ExpressionR="^小屋$" ExpressionTypeR="String" ConditionType="RegexMatch" />
                 </Condition>
               </Action>
             </Actions>
-            <Condition Enabled="false" Grouping="Or" />
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${epvar:rp_活点地图}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
           </Trigger>
         </Triggers>
       </Folder>
